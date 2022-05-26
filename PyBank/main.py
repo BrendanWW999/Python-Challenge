@@ -1,12 +1,11 @@
-#Importing the file
-import os
+import os                               # Importing the file
 import csv
+import decimal
 
 #sets path info
 csvpath = os.path.join('Python-Challenge', 'PyBank', 'Resources', 'budget_data.csv')
 
-#opens and reads CSV file
-with open(csvpath) as csvfile:
+with open(csvpath) as csvfile:          # opens and reads CSV file
     budget = csv.reader(csvfile)
 
     for row in budget:
@@ -17,10 +16,12 @@ with open(csvpath) as csvfile:
             gdec = 0
             total = indexold
             months = 1
+            total1 = 0
 
         if budget.line_num > 2  :       # runs here all lines bar the first 2 lines
-            index = int(row[1])        # copies the data from the CSV and converts to int
+            index = int(row[1])         # copies the data from the CSV and converts to int
             diff = index - indexold     # calulates between the new and old data
+            total1 += diff
             total += index              # generates the total result
             indexold = index            # updates indexold for next check
             months += 1                 # adds up the months
@@ -33,19 +34,19 @@ with open(csvpath) as csvfile:
                 lowdate = row[0]
 csvfile.close
 
-Average = total / (months - 1)          # Calulates the Average change\
+Average = total1 / (months - 1)          # Calulates the Average change\
 
 textoutput = "Financial Analysis\n----------------------------"
 textoutput = textoutput + "\nTotal Months: " + str(months)
-textoutput = textoutput + "\nTotal: $"+ str(total)
-textoutput = textoutput + "\nAverage Change: " + str(Average)
+textoutput = textoutput + "\nTotal: $"+ str(round(total, 2))
+textoutput = textoutput + "\nAverage Change: $" + str(Average)
 textoutput = textoutput + "\nGreatest Increase in Profits: " + highdate +  " ($" + str(ginc) + ")"
 textoutput = textoutput + "\nGreatest Decrease in Profits: " + lowdate +  " ($" + str(gdec) + ")"
 print(textoutput)
 
-outputfile = open("output.txt","x")
-outputfile.write(textoutput)
-outputfile.close
+#outputfile = open("output.txt","x")
+#outputfile.write(textoutput)
+#outputfile.close
 
     
 
