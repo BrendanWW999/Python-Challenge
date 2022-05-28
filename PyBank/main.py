@@ -1,3 +1,4 @@
+from importlib.resources import path
 import os                               # Importing the file
 import csv
 import decimal
@@ -34,7 +35,7 @@ with open(csvpath) as csvfile:          # opens and reads CSV file
                 lowdate = row[0]
 csvfile.close
 
-Average = total1 / (months - 1)          # Calulates the Average change\
+Average = round((total1 / (months - 1)), 2)          # Calulates the Average change
 
 textoutput = "Financial Analysis\n----------------------------"
 textoutput = textoutput + "\nTotal Months: " + str(months)
@@ -42,11 +43,12 @@ textoutput = textoutput + "\nTotal: $"+ str(round(total, 2))
 textoutput = textoutput + "\nAverage Change: $" + str(Average)
 textoutput = textoutput + "\nGreatest Increase in Profits: " + highdate +  " ($" + str(ginc) + ")"
 textoutput = textoutput + "\nGreatest Decrease in Profits: " + lowdate +  " ($" + str(gdec) + ")"
+textoutput = textoutput + "\n```"
 print(textoutput)
 
-#outputfile = open("output.txt","x")
-#outputfile.write(textoutput)
-#outputfile.close
+outputfile = open("C:\\Users\\Brendan\\Desktop\\Python-Challenge\\PyBank\\Analysis\\output.txt","x")
+outputfile.write(textoutput)
+outputfile.close
 
     
 
